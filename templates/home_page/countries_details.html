@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="shortcut icon" type="png" href="{% static 'images/fav.png' %}">
+    <meta charset="utf-8">
+    <title> Details:</title>
+  </head>
+  {% if user.is_superuser %}
+  <body>
+    <header class="hed">
+  		<div class="hed-div">
+  		<a href="index.html"><img src="{% static 'images/travel.jpg' %}" alt="Logo" width="150px" class="hed-div-img"><a>
+  		<nav class="hed-nav">
+        <div class="log-reg">
+  				<ul>
+  				{% if request.user.is_authenticated %}
+  				<li><a href="{% url 'logout' %}">Logout</a></li>
+  				{% else %}
+  				<li> <a href="{% url 'user_login' %}">Login</a> </li>
+  				{% endif %}
+  				<li> <a href="{% url 'register' %}">Register</a> </li>
+  			</ul>
+  			</div>
+  			<ul>
+  				<li><a href="{% url 'index' %}">Home</a></li>
+  				<li><a href="{% url 'home_page:countries' %}">Countries</a></li>
+  				<li><a>Categories</a>
+  					<ul>
+  						<li><a href="{% url 'home_page:categories' %}">Type&emsp;</a></li>
+  						<li><a href="{% url 'home_page:month' %}">Month&nbsp;</a></li>
+  					</ul>
+  				</li>
+  				<li><a href="{% url 'home_page:aboutus' %}">About Us</a></li>
+  				<li><a>Contact</a>
+
+  						<ul>
+  								<li><a href="{% url 'contact' %}">ContactUs</a></li>
+  							 	<li><a href="{% url 'suggest' %}">SuggestUs</a></li>
+  						 </ul>
+
+
+  				</li>
+  			</ul>
+  		</nav>
+  		</div>
+  	</header>
+    <section>
+    <div class="countrylist">
+    <h1>Country Detail</h1> <br>
+    <p><strong>Name:</strong> {{ country.Name }}</p> <br>
+    <p><strong>Location:</strong>{{ country.Location }}  </p> <br>
+    <p><strong>About:</strong> {{ country.About }}</p> <br>
+    <div class="form">
+         <a class="input anchor update" href="{% url 'countries_update' pk=country.Id %}">Update</a>
+         &emsp;
+         <a class="input anchor delete" type="submit" href="{% url 'countries_delete' country.Id %}">Delete</a>
+    </div>
+    <br><hr><br>
+    {% for i in country.cities.all %}
+
+    <br>
+  <strong>{{ i.Type }}<br></strong>
+    {{i.Name }}<br>
+    {{ i.About }}<br>
+
+  {% endfor %}
+  </div>
+
+  </body>
+
+  {% endif %}
+</html>

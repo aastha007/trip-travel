@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="shortcut icon" type="png" href="{% static 'images/fav.png' %}">
+    <title> delete_country</title>
+  </head>
+   {% if user.is_superuser %}
+  <body>
+    <header class="hed">
+  		<div class="hed-div">
+  		<a href="index.html"><img src="{% static 'images/travel.jpg' %}" alt="Logo" width="150px" class="hed-div-img"><a>
+  		<nav class="hed-nav">
+        <div class="log-reg">
+  				<ul>
+  				{% if request.user.is_authenticated %}
+  				<li><a href="{% url 'logout' %}">Logout</a></li>
+  				{% else %}
+  				<li> <a href="{% url 'user_login' %}">Login</a> </li>
+  				{% endif %}
+  				<li> <a href="{% url 'register' %}">Register</a> </li>
+  			</ul>
+  			</div>
+  			<ul>
+  				<li><a href="{% url 'index' %}">Home</a></li>
+  				<li><a href="{% url 'home_page:countries' %}">Countries</a></li>
+  				<li><a>Categories</a>
+  					<ul>
+  						<li><a href="{% url 'home_page:categories' %}">Type&emsp;</a></li>
+  						<li><a href="{% url 'home_page:month' %}">Month&nbsp;</a></li>
+  					</ul>
+  				</li>
+  				<li><a href="{% url 'home_page:aboutus' %}">About Us</a></li>
+  				<li><a>Contact</a>
+
+  						<ul>
+  								<li><a href="{% url 'contact' %}">ContactUs</a></li>
+  							 	<li><a href="{% url 'suggest' %}">SuggestUs</a></li>
+  						 </ul>
+
+
+  				</li>
+  			</ul>
+  		</nav>
+  		</div>
+  	</header>
+    <h1>Do you really want to Delete {{ country.Name }}?</h1>
+    <br>
+
+    <div class="form">
+      <form method="post">
+        {% csrf_token %}
+        &emsp;&emsp;<input class="input delete" type="submit" value="Delete">
+        &emsp;<input class="input submit" type="submit" href="{% url 'index' %}" value="Cancel">
+      </form>
+    </div>
+  </body>
+  {% endif %}
+</html>

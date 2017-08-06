@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link rel="shortcut icon" type="png" href="{% static 'images/fav.png' %}">
+	<title>Home</title>
+</head>
+<body>
+
+	<header class="hed">
+		<div class="hed-div">
+		<a href="index.html"><img src="{% static 'images/travel.jpg' %}" alt="Logo" width="150px" class="hed-div-img"><a>
+		<nav class="hed-nav">
+			<div class="log-reg">
+
+				<ul>
+				{% if request.user.is_authenticated %}
+				{% with a=a %}
+				<li style="color:#0E90C7;font-weight:bolder;">Welcome: {{ a.username }}</li>
+				{% endwith %}
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+				{% else %}
+				<li> <a href="{% url 'user_login' %}">Login</a> </li>
+				{% endif %}&emsp;
+				<li> <a href="{% url 'register' %}">Register</a> </li>
+			</ul>
+
+		</div>
+
+			<ul style="margin-left:135px">
+				<li><a href="{% url 'index' %}">Home</a></li>
+				<li><a href="{% url 'home_page:countries' %}">Countries</a></li>
+				<li><a>Categories</a>
+					<ul>
+						<li><a href="{% url 'home_page:categories' %}">Type&emsp;</a></li>
+						<li><a href="{% url 'home_page:month' %}">Month&nbsp;</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'home_page:aboutus' %}">About Us</a></li>
+				<li><a>Contact</a>
+
+						<ul>
+								<li><a href="{% url 'contact' %}">ContactUs</a></li>
+							 	<li><a href="{% url 'suggest' %}">SuggestUs</a></li>
+						 </ul>
+
+
+				</li>
+			</ul>
+
+		</nav>
+		</div>
+	</header>
+
+	<section class="sec">
+		<div class="sec-div1">
+				<img src="{% static 'Images/home_travel.jpg' %}" alt=travel width="50.5%" class="sec-img1">
+				<img src="{% static 'Images/home_travel2.jpg' %}" alt=travel width="49.5%" class="sec-img2">
+		</div>
+
+
+		<div class="sec-div2">
+			<h1 style="color: #5c5c8a;">Places in India</h1>
+			<br>
+			<br>
+			<a href="{% url 'home_page:india' %}"><img src="{% static 'Images/beaches.jpg' %}" alt="beaches" width="150px" class="sec-img3"></a>
+
+			&emsp; &emsp; &emsp; &emsp;
+
+			<a href="{% url 'home_page:india' %}"><img src="{% static 'Images/mountains.png' %}" alt="mountains" width="150px"></a>
+
+			&emsp; &emsp; &emsp; &emsp;
+
+			<a href="{% url 'home_page:india' %}"><img src="{% static 'Images/historical.jpg' %}" alt="historical" width="150px"></a>
+
+			&emsp; &emsp; &emsp; &emsp;
+
+			<a href="{% url 'home_page:india' %}"><img src="{% static 'Images/adventure.jpg' %}"Images/ alt="adventure" width="150px" class="sec-img6"></a>
+
+			<br>
+
+			&emsp; &emsp; &nbsp; <label>Beaches</label>
+
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&nbsp; <label>Mountains</label>
+
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <label>Historical</label>
+
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; <label>Adventure</label>
+
+		</div>
+		<br><br><br>
+		  {% if user.is_superuser %}
+		<div class="super">
+			<h2>Edit Tables</h2>
+			<br>
+			<a href="{% url 'country_create' %}">Create New Country</a>
+			&emsp;&emsp;&emsp;
+			<a href="{% url 'list' %}">View Exisiting Countries</a>
+		</div>
+		{% endif %}
+	</section>
+
+
+	<footer class="foot">
+
+			&copy; copyright 2017 Trip Travel (MCA)
+
+	</footer>
+
+</body>
+</html>

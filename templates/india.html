@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link rel="shortcut icon" type="png" href="{% static 'images/fav.png' %}">
+	<title>Home</title>
+</head>
+
+<body>
+	<header class="hed">
+		<div class="hed-div">
+		<a href="index.html"><img src="{% static 'Images/travel.jpg' %}" alt="Logo" width="150px" class="hed-div-img"><a>
+		<nav class="hed-nav">
+			<div class="log-reg">
+				<ul>
+				{% if request.user.is_authenticated %}
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+				{% else %}
+				<li> <a href="{% url 'user_login' %}">Login</a> </li>
+				{% endif %}
+				<li> <a href="{% url 'register' %}">Register</a> </li>
+			</ul>
+			</div>
+			<ul>
+				<li><a href="{% url 'index' %}">Home</a></li>
+				<li><a href="{% url 'home_page:countries' %}">Countries</a></li>
+				<li><a>Categories</a>
+					<ul>
+						<li><a href="{% url 'home_page:categories' %}">Type&emsp;</a></li>
+						<li><a href="{% url 'home_page:month' %}">Month&nbsp;</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'home_page:aboutus' %}">About Us</a></li>
+				<li><a>Contact</a>
+
+						<ul>
+								<li><a href="{% url 'contact' %}">ContactUs</a></li>
+							 	<li><a href="{% url 'suggest' %}">SuggestUs</a></li>
+						 </ul>
+
+
+				</li>
+			</ul>
+		</nav>
+	</div>
+	</header>
+
+	<div class="main-div">
+		{% with j=data %}
+		<aside class=side>
+			<img src="{{ j.Image.url }}" alt="India">
+			<br>
+			<h1> {{ j.Name|upper }} <h1>
+		</aside>
+		<section class="india-sec">
+			<div class="para">
+				<p>
+				<h1>About {{ j.Name }}</h1>
+				<br>
+				{{ j.About|linebreaks }}
+				<br>
+				</p>
+				{% endwith %}
+			</div>
+
+	<div class="tab">
+		<button class="tablinks active" onclick="openCity(event, 'Beaches')" >Beaches</button>
+    <button class="tablinks" onclick="openCity(event, 'Adventure')">Adventure Sports</button>
+    <button class="tablinks" onclick="openCity(event, 'Mountains')">Hill Station</button>
+    <button class="tablinks" onclick="openCity(event, 'Historical')">Historical Places</button>
+  </div>
+
+  <div id="Beaches" class="tabcontent" style="display:block">
+    {% for i in Bdata %}
+		<br>
+    <h3>{{ i.Name }}</h3>
+		<br>
+    <img src="{{ i.Image.url }}" alt="Not Found">
+		<br><br>
+    <p>{{ i.About }}</p>
+
+		<br>
+		<br>
+
+		{% if request.user.is_authenticated %}
+		<div class="comment">
+			<form action="{% url 'home_page:city_name' i.Name data.Name %}" method="post">
+					{% csrf_token %}
+					<label>Title:</label>
+					<br>
+					{{ form.title }}
+					<br>
+					<label>Comment:</label>
+					<br>
+					{{ form.comment_box }}
+					<br><br>
+					<input type="submit" value="COMMENT">
+				</form>
+				</div>
+
+		{% endif %}
+
+		<div class="comment">
+		<h2>Comments</h2>
+
+				{% for k in i.comment_set.all %}
+				<br>
+				<h3>Title: {{ k.title }}</h3>
+				Comment: {{ k.comment_box }}
+				<br>
+				Posted By: {{ k.user.username }} on {{ k.date_created }}
+				<hr>
+				<br>
+				{% endfor %}
+				</div>
+				</br>
+				<hr>
+				{% endfor %}
+
+  </div>
+
+  <div id="Adventure" class="tabcontent">
+    {% for i in Adata %}
+		<br>
+    <h3>{{ i.Name }}</h3>
+		<br>
+    <img src="{{ i.Image.url }}" alt="Not Found">
+		<br><br>
+    <p>{{ i.About }}</p>
+		<br><br>
+				{% if request.user.is_authenticated %}
+				<div class="comment">
+					<form action="{% url 'home_page:city_name' i.Name data.Name %}" method="post">
+							{% csrf_token %}
+							<label>Title:</label>
+							<br>
+							{{ form.title }}
+							<br>
+							<label>Comment:</label>
+							<br>
+							{{ form.comment_box }}
+							<br><br>
+							<input type="submit" value="COMMENT">
+						</form>
+						</div>
+				{% endif %}
+				<div class="comment">
+				<h2>Comments</h2>
+
+						{% for k in i.comment_set.all %}
+						<br>
+						<h3>Title: {{ k.title }}</h3>
+						Comment:{{ k.comment_box }}
+
+						Posted By: {{ k.user.username }} on {{ k.date_created }}
+						<hr>
+						<br>
+						{% endfor %}
+						</div>
+						</br>
+						<hr>
+						{% endfor %}
+
+  </div>
+
+  <div id="Mountains" class="tabcontent">
+    {% for i in Mdata %}
+		<br>
+    <h3>{{ i.Name }}</h3>
+		<br>
+    <img src="{{ i.Image.url }}" alt="Not Found">
+		<br><br>
+    <p>{{ i.About }}</p>
+		<br><br>
+		{% if request.user.is_authenticated %}
+		<div class="comment">
+			<form action="{% url 'home_page:city_name' i.Name data.Name %}" method="post">
+					{% csrf_token %}
+					<label>Title:</label>
+					<br>
+					{{ form.title }}
+					<br>
+					<label>Comment:</label>
+					<br>
+					{{ form.comment_box }}
+					<br><br>
+					<input type="submit" value="COMMENT">
+				</form>
+				</div>
+		{% endif %}
+		<div class="comment">
+		<h2>Comments</h2>
+
+				{% for k in i.comment_set.all %}
+				<br>
+				<h3>Title: {{ k.title }}</h3>
+				Comment: {{ k.comment_box }}
+
+				Posted By: {{ k.user.username }} on {{ k.date_created }}
+				<hr>
+				<br>
+				{% endfor %}
+				</div>
+				</br>
+				<hr>
+    {% endfor %}
+  </div>
+
+  <div id="Historical" class="tabcontent">
+    {% for i in Hdata %}
+		<br>
+    <h3>{{ i.Name }}</h3>
+		<br>
+    <img src="{{ i.Image.url }}" alt="Not Found">
+		<br><br>
+    <p>{{ i.About }}</p>
+		<br><br>
+		{% if request.user.is_authenticated %}
+		<div class="comment">
+			<form action="{% url 'home_page:city_name' i.Name data.Name %}" method="post">
+					{% csrf_token %}
+					<label>Title:</label>
+					<br>
+					{{ form.title }}
+					<br>
+					<label>Comment:</label>
+					<br>
+					{{ form.comment_box }}
+					<br><br>
+					<input type="submit" value="COMMENT">
+				</form>
+				</div>
+		{% endif %}
+		<div class="comment">
+		<h2>Comments</h2>
+
+				{% for k in i.comment_set.all %}
+				<br>
+				<h3>Title: {{ k.title }}</h3>
+				Comment: {{ k.comment_box }}
+
+				Posted By: {{ k.user.username }} on {{ k.date_created }}
+				<hr>
+				<br>
+				{% endfor %}
+				</div>
+				</br>
+				<hr>
+    {% endfor %}
+  </div>
+
+  <script>
+  function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+  }
+  </script>
+
+			</section>
+</div>
+	<footer class="foot">
+
+			&copy; copyright 2017 Trip Travel (MCA)
+
+	</footer>
+</body>
+</html>

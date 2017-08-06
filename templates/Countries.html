@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link rel="shortcut icon" type="png" href="{% static 'images/fav.png' %}">
+	<title>Countries</title>
+</head>
+<body>
+	<header class="hed">
+		<div class="hed-div">
+		<a href="index.html"><img src="{% static 'Images/travel.jpg' %}" alt="Logo" width="150px" class="hed-div-img"><a>
+		<nav class="hed-nav">
+			<div class="log-reg">
+				<ul>
+				{% if request.user.is_authenticated %}
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+				{% else %}
+				<li> <a href="{% url 'user_login' %}">Login</a> </li>
+				{% endif %}
+				<li> <a href="{% url 'register' %}">Register</a> </li>
+			</ul>
+			</div>
+			<ul>
+				<li><a href="{% url 'index' %}">Home</a></li>
+				<li><a href="{% url 'home_page:countries' %}">Countries</a></li>
+				<li><a>Categories</a>
+					<ul>
+						<li><a href="{% url 'home_page:categories' %}">Type&emsp;</a></li>
+						<li><a href="{% url 'home_page:month' %}">Month&nbsp;</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'home_page:aboutus' %}">About Us</a></li>
+				<li><a>Contact</a>
+
+						<ul>
+								<li><a href="{% url 'contact' %}">ContactUs</a></li>
+							 	<li><a href="{% url 'suggest' %}">SuggestUs</a></li>
+						 </ul>
+
+
+				</li>
+			</ul>
+		</nav>
+		</div>
+	</header>
+	<div class="main-div">
+
+		<aside class="continent">
+			<h1>Continents</h1>
+
+			<br><br>
+
+			<img src="{% static 'Images/asia.jpg'%}" alt="Asia" width="180px">
+
+			<br><br>
+
+			<label>Asia</label>
+
+			<br><br><hr><br><br><br><br><br>
+
+			<img src="{% static 'Images/europe.jpg'%}" alt="Europe" width="180px">
+
+			<br><br>
+
+			<label>Europe</label>
+
+			<br><br><hr><br><br><br>
+
+			<img src="{% static 'Images/south_america.jpg'%}" alt="South America" width="180px">
+
+			<br><br>
+
+			<label>South America</label>
+
+			<br><br><hr><br><br><br>
+
+			<img src="{% static 'Images/north_america.png'%}" alt="North America" width="180px">
+
+			<br><br>
+
+			<label>North America</label>
+
+			<br><br><hr><br><br><br>
+
+			<img src="{% static 'Images/africa.png'%}" alt="Africa" width="180px">
+
+			<br><br>
+
+			<label>Africa</label>
+		</aside>
+		<div class="countries">
+			<h1>Countries</h1>
+
+			<br><br>
+
+			<a href="{% url 'home_page:india' %}"><img src="{% static 'Images/india.jpg'%}" alt="India" width="150px"></a>
+			<a href="{% url 'home_page:china' %}"><img src="{% static 'Images/china.jpg'%}" alt="China" width="180px"></a>
+			&emsp; &emsp; &emsp;
+			<a href="{% url 'home_page:uae' %}"><img src="{% static 'Images/uae.jpg'%}" alt="UAE" width="180px"></a>
+			<a href="{% url 'home_page:japan' %}"><img src="{% static 'Images/japan.png'%}" alt="Japan" width="180px"></a>
+
+			<br>
+
+			&emsp; &emsp;
+			<label>India</label>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&nbsp;
+			<label>China</label>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			<label>UAE</label>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			<label>Japan</label>
+
+			<br><br><hr><br><br>
+
+			<a href="{% url 'home_page:france' %}"><img src="{% static 'Images/france.jpg'%}" alt="France" width="150px"></a>
+			&emsp; &emsp;&emsp;
+			<a href="{% url 'home_page:greece' %}"><img src="{% static 'Images/greece.png'%}" alt="Greece" width="150px"></a>
+			&emsp; &emsp; &emsp; &nbsp;
+			<a href="{% url 'home_page:sweden' %}"><img src="{% static 'Images/sweden.png'%}" alt="Sweden" width="150px"></a>
+
+			<br>
+
+			&emsp; &emsp; &nbsp;
+			<label>France</label>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&nbsp;
+			<label>Greece</label>
+			&emsp; &emsp;  &emsp;  &emsp; &emsp; &emsp;
+			<label>Sweden</label>
+
+			<br><br><hr><br><br><br><br><br><br><br><br><br><br>
+
+			<a href="{% url 'home_page:brazil' %}"><img src="{% static 'Images/brazil.png'%}" alt="Brazil" width="150px"></a>
+			&emsp; &emsp; &emsp; &emsp; &emsp;
+			<a href="{% url 'home_page:argentina' %}"><img src="{% static 'Images/argentina.jpg'%}" alt="Argentina" width="150px"></a>
+
+			<br>
+
+			&emsp; &emsp; &emsp;
+			<label>Brazil</label>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;
+			<label>Argentina</label>
+
+			<br><br><hr><br><br><br><br><br><br><br><br><br><br>
+
+			<a href="{% url 'home_page:usa' %}"><img src="{% static 'Images/usa.jpg' %}" alt="USA" width="150px"></a>
+			&emsp; &emsp; &emsp; &emsp; &emsp;
+			<a href="{% url 'home_page:canada' %}"><img src="{% static 'Images/canada.jpg' %}" alt="Canada" width="150px"></a>
+
+			<br>
+
+			&emsp; &emsp; &emsp;
+			<label>USA</label>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;
+			<label>Canada</label>
+
+			<br><br><hr><br><br><br><br>
+
+			<a href="{% url 'home_page:egypt' %}"><img src="{% static 'Images/egypt.jpg'%}" alt="Egypt" width="150px"></a>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+			<a href="{% url 'home_page:madagascar' %}"><img src="{% static 'Images/madagascar.jpg'%}" alt="Madagascar" width="150px"></a>
+
+			<br>
+
+			&emsp; &emsp;
+			<label>Egypt</label>
+			&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &nbsp;
+			<label>Madagascar</label>
+		</div>
+		</div>
+	<footer class="foot">
+			&copy; copyright 2017 Trip Travel (MCA)
+	</footer>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link rel="shortcut icon" type="png" href="{% static 'images/fav.png' %}">
+	<title> Categories </title>
+</head>
+<body>
+	<header class="hed">
+		<div class="hed-div">
+		<a href="index.html"><img src="Images/travel.jpg" alt="Logo" width="150px" class="hed-div-img"><a>
+		<nav class="hed-nav">
+      <div class="log-reg">
+				<ul>
+				{% if request.user.is_authenticated %}
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+				{% else %}
+				<li> <a href="{% url 'user_login' %}">Login</a> </li>
+				{% endif %}
+				<li> <a href="{% url 'register' %}">Register</a> </li>
+			</ul>
+			</div>
+			<ul>
+				<li><a href="{% url 'index' %}">Home</a></li>
+				<li><a href="{% url 'home_page:countries' %}">Countries</a></li>
+				<li><a>Categories</a>
+					<ul>
+						<li><a href="{% url 'home_page:categories' %}">Type&emsp;</a></li>
+						<li><a href="{% url 'home_page:month' %}">Month&nbsp;</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'home_page:aboutus' %}">About Us</a></li>
+				<li><a>Contact</a>
+
+						<ul>
+								<li><a href="{% url 'contact' %}">ContactUs</a></li>
+							 	<li><a href="{% url 'suggest' %}">SuggestUs</a></li>
+						 </ul>
+
+
+				</li>
+			</ul>
+		</nav>
+	</header>
+  <div class="main-div">
+  <form class="" action="{% url 'home_page:month' %}" method="POST">
+    {% csrf_token %}
+    <select class="" name="select" >
+      <option value="january" >January</option>
+      <option value="february">February</option>
+      <option value ="march">March</option>
+      <option value="april">April</option>
+      <option value="may">May</option>
+      <option value="june">June</option>
+      <option value="july">July</option>
+      <option value="august">August</option>
+      <option value="september">September</option>
+      <option value="october">October</option>
+      <option value="november">November</option>
+      <option value="december">December</option>
+    </select>
+    <input type="Submit" value="Show">
+  </form>
+    <br><br>
+    <div style="border:2px solid #000000; padding: 10px;">
+      {% for i in month %}
+      <h2>{{ i.Name }}</h2> <h3> ({{ i.Type }},{{ i.Id }})</h3>
+        <br>
+      <img src="{{ i.Image.url }}" alt="Not Found">
+      <br>
+      {{ i.About }}
+      <br><br>
+      <hr>
+      <br>
+      {% endfor %}
+    </div>
+
+</div>
+  <footer class="foot">
+
+			&copy; copyright 2017 Trip Travel (MCA)
+
+	</footer>
+</body>
+</html>

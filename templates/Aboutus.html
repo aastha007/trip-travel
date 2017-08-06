@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Mogra" rel="stylesheet">
+	<link rel="shortcut icon" type="png" href="{% static 'images/fav.png' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Home</title>
+</head>
+<body>
+	<header class="hed">
+		<div class="hed-div">
+		<a href="index.html"><img src="{% static 'Images/travel.jpg'%}" alt="Logo" width="150px" class="hed-div-img"><a>
+		<nav class="hed-nav">
+			<div class="log-reg">
+				<ul>
+				{% if request.user.is_authenticated %}
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+				{% else %}
+				<li> <a href="{% url 'user_login' %}">Login</a> </li>
+				{% endif %}
+				<li> <a href="{% url 'register' %}">Register</a> </li>
+			</ul>
+			</div>
+			<ul>
+				<li><a href="{% url 'index' %}">Home</a></li>
+				<li><a href="{% url 'home_page:countries' %}">Countries</a></li>
+				<li><a>Categories</a>
+					<ul>
+						<li><a href="{% url 'home_page:categories' %}">Type&emsp;</a></li>
+						<li><a href="{% url 'home_page:month' %}">Month&nbsp;</a></li>
+					</ul>
+				</li>
+				<li><a href="{% url 'home_page:aboutus' %}">About Us</a></li>
+				<li><a>Contact</a>
+
+						<ul>
+								<li><a href="{% url 'contact' %}">ContactUs</a></li>
+							 	<li><a href="{% url 'suggest' %}">SuggestUs</a></li>
+						 </ul>
+
+
+				</li>
+			</ul>
+		</nav>
+		</div>
+	</header>
+
+	<section>
+		<div class="about-hed">
+			About Us
+		</div>
+		<div class="about">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+			<br><br>
+			<h4>Hardware Required:</h4>
+			Minimum 1GB RAM,Pentium Dual Core
+			<br><br>
+			<h4>Software Required:</h4>
+			 Windows xp or higher
+			<br><br>
+			<h4>Front-end:</h4>
+			HTML5 and CSS3
+			<br><br>
+			<h4>Back-end language:</h4>
+			Python 2.7
+			<br><br>
+			<h4>Framework:</h4>
+			Django 1.11
+			<br><br>
+			<h4>Database:</h4>
+			Sqlite3
+		</div>
+		<div class="team-hed">
+			TEAM
+		</div>
+		<div class="team">
+			<div class="arpit">
+				<h2>Arpit</h2>
+				<a href="https://www.linkedin.com/in/arpit-gupta-116a57120"><i class="fa fa-linkedin-square" style="font-size:28px;color:#0077B5;"></i></a>
+				<a href="https://www.google.com/+ArpitGupta276"><i class="fa fa-google-plus-circle" style="font-size:28px;color:red"></i></a>
+				<br><br>
+				Arpit Gupta
+			</div>
+			<div class="aastha">
+				<h2>Aastha</h2>
+				<br><br>
+				Aastha Kansal
+			</div>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<div class="arpit">
+				<h2>Jatin Saini</h2>
+				<a href="https://www.linkedin.com/in/arpit-gupta-116a57120"><i class="fa fa-linkedin-square" style="font-size:28px;color:#0077B5;"></i></a>
+				<a href="https://www.google.com/+ArpitGupta276"><i class="fa fa-google-plus-circle" style="font-size:28px;color:red"></i></a>
+				<br><br>
+				Jatin Saini
+			</div>
+			<div class="aastha">
+				<h2>Gagan</h2>
+				<br><br>
+				Gagan
+			</div>
+		</div>
+
+	</section>
+
+<footer class="foot">
+
+			&copy; copyright 2017 Trip Travel (MCA)
+
+	</footer>
+
+</body>
+</html>

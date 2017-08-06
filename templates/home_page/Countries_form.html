@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="shortcut icon" type="png" href="{% static 'images/fav.png' %}">
+    <meta charset="utf-8">
+    <title> country form</title>
+  </head>
+    {% if user.is_superuser %}
+  <body>
+    <header class="hed">
+  		<div class="hed-div">
+  		<a href="index.html"><img src="{% static 'images/travel.jpg' %}" alt="Logo" width="150px" class="hed-div-img"><a>
+  		<nav class="hed-nav">
+        <div class="log-reg">
+  				<ul>
+  				{% if request.user.is_authenticated %}
+  				<li><a href="{% url 'logout' %}">Logout</a></li>
+  				{% else %}
+  				<li> <a href="{% url 'user_login' %}">Login</a> </li>
+  				{% endif %}
+  				<li> <a href="{% url 'register' %}">Register</a> </li>
+  			</ul>
+  			</div>
+  			<ul>
+  				<li><a href="{% url 'index' %}">Home</a></li>
+  				<li><a href="{% url 'home_page:countries' %}">Countries</a></li>
+  				<li><a>Categories</a>
+  					<ul>
+  						<li><a href="{% url 'home_page:categories' %}">Type&emsp;</a></li>
+  						<li><a href="{% url 'home_page:month' %}">Month&nbsp;</a></li>
+  					</ul>
+  				</li>
+  				<li><a href="{% url 'home_page:aboutus' %}">About Us</a></li>
+  				<li><a>Contact</a>
+  						<ul>
+  								<li><a href="{% url 'contact' %}">ContactUs</a></li>
+  							 	<li><a href="{% url 'suggest' %}">SuggestUs</a></li>
+  						 </ul>
+  				</li>
+  			</ul>
+  		</nav>
+  		</div>
+  	</header>
+    <section class="sec">
+    <div class="create_country">
+     {% if not form.instance.pk %}
+     <h1>Create New Country</h1>
+        <br><br>
+        {% else %}
+      <h1>Update {{countries.Name}}</h1>
+      <br><br>
+        {% endif %}
+      <form method="post" >
+        {% csrf_token %}
+        <label>Id:</label>&emsp;&emsp;&emsp;&nbsp;{{ form.Id }}
+        <br><br>
+        <label>Name:</label>&emsp;&nbsp;&nbsp;{{form.Name}}
+        <br><br>
+        <label>Location:</label>&nbsp;{{form.Location}}
+        <br><br>
+        <label>About:</label>&emsp;&nbsp;&nbsp;{{form.About}}
+        <br><br>
+        <label>Image:</label>&emsp;&emsp;{{form.Image}}
+        <br><br><br>
+        <input class="input submit" type="submit" value="SUBMIT">
+      </form>
+    </div>
+
+
+
+
+  </body>
+  {% endif %}
+</html>
